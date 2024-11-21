@@ -26,6 +26,7 @@ export abstract class KVStore<
 > extends Service<CONFIG> {
     abstract get(key: string): Promise<T | undefined>;
     abstract set(key: string, value: T): Promise<T>;
+    abstract delete(key: string): Promise<boolean>;
 }
 
 export type MemKVStoreConfig = {};
@@ -45,6 +46,14 @@ export class MemKVStore<T> extends KVStore<MemKVStoreConfig, T> {
 
     async get(key: string): Promise<T | undefined> {
         return this.store[key];
+    }
+
+    async delete(key: string): Promise<boolean> {
+        if (key in this.store) {
+            delete this.store[key];
+            return true;
+        }
+        return false;
     }
 
     async set(key: string, value: T): Promise<T> {
@@ -80,6 +89,11 @@ export class RedisKVStore<T> extends KVStore<RedisConfig, T> {
     async set(key: string, value: T): Promise<T> {
         await this.client.set(key, JSON.stringify(value));
         return value;
+    }
+
+    async delete(key: string): Promise<boolean> {
+        const result = await this.client.del(key);
+        return result > 0; // Returns true if key was deleted, false if it didn't exist
     }
 
     override async stop(): Promise<void> {

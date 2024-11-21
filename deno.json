@@ -8,6 +8,7 @@
     "@std/assert": "jsr:@std/assert@1",
     "date-fns": "npm:date-fns@^4.1.0",
     "fx": "npm:fx@^35.0.0",
+    "ioredis": "npm:ioredis@^5.4.1",
     "tslib": "npm:tslib@^2.8.1"
   }
 }
