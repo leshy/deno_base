@@ -1,5 +1,13 @@
 import { assertEquals } from "@std/assert";
-import { getSecret, getUsers, getFirstSecret } from "./secrets.ts";
+import { getSecret, getUsers, getFirstSecret, stubbable } from "./secrets.ts";
+
+const testUsers = `test.com
+├── testuser@localhost
+└── user2@localhost`;
+
+const returns = [testUsers, testUsers, "testpassword", "testpassword"];
+
+stubbable.exec = async (): Promise<string> => returns.shift() as string;
 
 Deno.test("list users", async function () {
     const users = await getUsers("test.com");

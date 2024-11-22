@@ -100,6 +100,7 @@ export class RedisKVStore<T> extends KVStore<RedisConfig, T> {
         await this.client.quit();
     }
 
+    // haven't read the docs, this is chatgpt, there should be an easier way for this?
     async deleteKeysByPattern(pattern: string) {
         let cursor = "0";
         do {
