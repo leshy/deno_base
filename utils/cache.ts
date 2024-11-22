@@ -1,7 +1,6 @@
-import { KVStore } from "./kvstore.ts"; // Adjust path as necessary
+import { KVStore } from "./kvstore.ts";
 
-// Define the decorator
-export function permaCache<ReturnType>(
+export function cache<ReturnType>(
     cache: KVStore<any, ReturnType>,
     keyGenerator?: (...args: any[]) => string,
 ) {

@@ -1,6 +1,6 @@
 import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
 import { KVStore, MemKVStore, RedisKVStore } from "./kvstore.ts";
-import { permaCache } from "./cache.ts";
+import { cache } from "./cache.ts";
 
 type KVStoreFactory = () => Promise<KVStore<Record<string, unknown>, any>>;
 
@@ -10,7 +10,7 @@ async function runTests<T>(KVStoreF: KVStoreFactory) {
 
     class ExampleService {
         public counter = 0;
-        @permaCache(store) // Use new store for each instance
+        @cache(store)
         async computeValue(x: number, y: number): Promise<number> {
             return await this.computation(x, y);
         }
@@ -22,7 +22,7 @@ async function runTests<T>(KVStoreF: KVStoreFactory) {
     }
 
     Deno.test(
-        name + " permaCache decorator should cache function results",
+        name + " cache decorator should cache function results",
         async () => {
             const service = new ExampleService();
             const result1 = await service.computeValue(1, 2);
@@ -48,7 +48,7 @@ async function runTests<T>(KVStoreF: KVStoreFactory) {
     );
 
     Deno.test(
-        name + " permaCache decorator should compute value on cache miss",
+        name + " cache decorator should compute value on cache miss",
         async () => {
             const service = new ExampleService();
             const result = await service.computeValue(3, 4);
@@ -63,7 +63,7 @@ async function runTests<T>(KVStoreF: KVStoreFactory) {
     );
 
     Deno.test(
-        name + " permaCache should correctly handle different arguments",
+        name + " cache should correctly handle different arguments",
         async () => {
             const service = new ExampleService();
             const result1 = await service.computeValue(5, 5);
@@ -85,6 +85,13 @@ async function runTests<T>(KVStoreF: KVStoreFactory) {
                 result3,
                 0,
                 "Should return correct result for inputs -1, 1",
+            );
+
+            const result4 = await service.computeValue(-1, 1);
+            assertEquals(
+                result4,
+                0,
+                "Should return correct cached result for inputs -1, 1",
             );
 
             assertEquals(
