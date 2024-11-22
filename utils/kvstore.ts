@@ -99,4 +99,23 @@ export class RedisKVStore<T> extends KVStore<RedisConfig, T> {
     override async stop(): Promise<void> {
         await this.client.quit();
     }
+
+    async deleteKeysByPattern(pattern: string) {
+        let cursor = "0";
+        do {
+            const [nextCursor, keys] = await this.client.scan(
+                cursor,
+                "MATCH",
+                pattern,
+                "COUNT",
+                1000,
+            );
+            cursor = nextCursor;
+
+            if (keys.length > 0) {
+                await this.client.del(keys); // Bulk delete keys
+                // console.log(`Deleted keys: ${keys.join(", ")}`);
+            }
+        } while (cursor !== "0");
+    }
 }

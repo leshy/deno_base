@@ -10,5 +10,8 @@
     "fx": "npm:fx@^35.0.0",
     "ioredis": "npm:ioredis@^5.4.1",
     "tslib": "npm:tslib@^2.8.1"
+  },
+  "compilerOptions": {
+    "experimentalDecorators": true
   }
 }
