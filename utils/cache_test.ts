@@ -1,11 +1,6 @@
 import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
-import {
-    assertSpyCalls,
-    spy,
-    Spy,
-} from "https://deno.land/std/testing/mock.ts";
-import { KVStore, MemKVStore, RedisKVStore } from "./kvstore.ts"; // Adjust path as necessary
-import { permaCache } from "./cache.ts"; // Adjust path as necessary
+import { KVStore, MemKVStore, RedisKVStore } from "./kvstore.ts";
+import { permaCache } from "./cache.ts";
 
 type KVStoreFactory = () => Promise<KVStore<Record<string, unknown>, any>>;
 
