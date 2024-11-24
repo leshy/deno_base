@@ -51,7 +51,7 @@ export class Polymarket {
         return this.client;
     }
 
-    async listMarkets(): Promise<any> {
+    async listMarkets(cursor?: string): Promise<any> {
         const clobClient = await this.getClient();
         return await clobClient.getSamplingMarkets();
     }

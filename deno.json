@@ -12,6 +12,7 @@
     "tslib": "npm:tslib@^2.8.1"
   },
   "compilerOptions": {
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   }
 }
