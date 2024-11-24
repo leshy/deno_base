@@ -1,6 +1,7 @@
 {
   "tasks": {
-    "dev": "deno run --watch main.ts"
+    "dev": "deno run --watch main.ts",
+    "test": "deno test -A --parallel"
   },
   "imports": {
     "@ethersproject/wallet": "npm:@ethersproject/wallet@^5.7.0",

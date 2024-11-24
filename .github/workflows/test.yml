@@ -14,16 +14,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Clone repository
-        uses: actions/checkout@v4
-
-      - name: Install Deno
-        uses: denoland/setup-deno@v2
-        with:
-          deno-version: v2.x
-
-      - name: Start Redis
+      - name: "Start Redis"
         uses: supercharge/redis-github-action@1.7.0
 
-      - name: Test
-        run: "deno test -A"
+      - name: "Clone repository"
+        uses: actions/checkout@v4
+
+      - name: "Setup Deno"
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: "v2.x"
+
+      - name: "Run Tests"
+        run: deno task test
