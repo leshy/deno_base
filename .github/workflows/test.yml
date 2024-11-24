@@ -5,6 +5,9 @@ on:
   pull_request:
     branches: main
 
+env:
+  GITHUB: True
+
 jobs:
   test:
     name: Test
@@ -18,6 +21,9 @@ jobs:
         uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
+
+      - name: Start Redis
+        uses: supercharge/redis-github-action@1.7.0
 
       - name: Test
         run: "deno test -A"
