@@ -1,32 +1,32 @@
 {
-    "tasks": {
-        "dev": "deno run --watch main.ts",
-        "fmt": "deno fmt",
-        "test": "deno test -A --parallel",
-        "lint": "deno lint"
-    },
-    "imports": {
-        "@ethersproject/wallet": "npm:@ethersproject/wallet@^5.7.0",
-        "@polymarket/clob-client": "npm:@polymarket/clob-client@^4.11.0",
-        "@std/assert": "jsr:@std/assert@1",
-        "date-fns": "npm:date-fns@^4.1.0",
-        "fx": "npm:fx@^35.0.0",
-        "ioredis": "npm:ioredis@^5.4.1",
-        "tslib": "npm:tslib@^2.8.1",
-        "typescript": "npm:typescript@^5.7.2"
-    },
-    "compilerOptions": {
-        "experimentalDecorators": true,
-        "emitDecoratorMetadata": true
-    },
-    "lint": {
-        "rules": {
-            "exclude": ["require-await", "ban-ts-comment"]
-        }
-    },
-    "fmt": {
-        "indentWidth": 4,
-        "useTabs": false,
-        "semiColons": false
+  "tasks": {
+    "dev": "deno run --watch main.ts",
+    "fmt": "deno fmt",
+    "test": "deno test -A --parallel",
+    "lint": "deno lint"
+  },
+  "imports": {
+    "@ethersproject/wallet": "npm:@ethersproject/wallet@^5.7.0",
+    "@polymarket/clob-client": "npm:@polymarket/clob-client@^4.11.0",
+    "@std/assert": "jsr:@std/assert@1",
+    "date-fns": "npm:date-fns@^4.1.0",
+    "fx": "npm:fx@^35.0.0",
+    "ioredis": "npm:ioredis@^5.4.1",
+    "tslib": "npm:tslib@^2.8.1",
+    "typescript": "npm:typescript@^5.7.2"
+  },
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  },
+  "lint": {
+    "rules": {
+      "exclude": ["require-await", "ban-ts-comment"]
     }
+  },
+  "fmt": {
+    "indentWidth": 4,
+    "useTabs": false,
+    "semiColons": false
+  }
 }
