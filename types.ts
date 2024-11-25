@@ -1,5 +1,5 @@
-import { PolyMarketConfig } from "./integration/polymarket.ts";
+import { PolyMarketConfig } from "./integration/polymarket.ts"
 
 export type Config = {
-    polymarket: PolyMarketConfig;
-};
+    polymarket: PolyMarketConfig
+}

@@ -1,58 +1,60 @@
-export function isObject(value: any): boolean {
-    return value !== null && typeof value === "object";
+export function isObject(value: unknown): value is object {
+    return value !== null && typeof value === "object"
 }
 
 // lodash set
 export function objSet(
-    obj: Record<string, any>,
+    obj: Record<string, unknown>,
     path: string | string[],
-    value: any,
-): Record<string, any> {
+    value: unknown,
+): Record<string, unknown> {
     if (!isObject(obj)) {
-        throw new Error("Target must be an object");
+        throw new Error("Target must be an object")
     }
 
     if (typeof path === "string") {
-        path = path.split(".");
+        path = path.split(".")
     }
 
-    let current = obj;
+    let current = obj
     path.forEach((key, index) => {
         if (index === path.length - 1) {
-            current[key] = value;
+            current[key] = value
         } else {
             if (!current[key] || !isObject(current[key])) {
-                current[key] = {};
+                current[key] = {}
             }
-            current = current[key];
+            // @ts-ignore
+            current = current[key]
         }
-    });
+    })
 
-    return obj;
+    return obj
 }
 
-export type MapperFunction = (key: string, value: unknown) => [string, unknown];
+export type MapperFunction<T> = (key: string, value: T) => [string, T]
 
-export function deepMap(
-    obj: Record<string, unknown>,
-    mapper: MapperFunction,
-): Record<string, any> {
-    function recurse(currentObj: Record<string, any>): Record<string, any> {
+export function deepMap<T>(
+    obj: Record<string, T>,
+    mapper: MapperFunction<T>,
+): Record<string, T> {
+    function recurse(currentObj: Record<string, T>): Record<string, T> {
         return Object.entries(currentObj).reduce(
             (acc, [key, value]) => {
-                const [newKey, newValue] = mapper(key, value);
+                const [newKey, newValue] = mapper(key, value)
 
                 // If the value is an object, recursively map it
-                acc[newKey] =
-                    typeof newValue === "object" && newValue !== null
-                        ? recurse(newValue)
-                        : newValue;
+                // @ts-ignore
+                acc[newKey] = typeof newValue === "object" && newValue !== null
+                    // @ts-ignore
+                    ? recurse(newValue)
+                    : newValue
 
-                return acc;
+                return acc
             },
-            {} as Record<string, any>,
-        );
+            {} as Record<string, T>,
+        )
     }
 
-    return recurse(obj);
+    return recurse(obj)
 }

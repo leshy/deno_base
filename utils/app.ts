@@ -1,31 +1,29 @@
-import { join } from "https://deno.land/std/path/mod.ts";
-import { jsonConfigProvider, envConfigProvider, redact } from "./config.ts";
-import { deepMerge } from "https://deno.land/std/collections/mod.ts";
+import { join } from "https://deno.land/std/path/mod.ts"
+import { envConfigProvider, jsonConfigProvider, redact } from "./config.ts"
+import { deepMerge } from "https://deno.land/std/collections/mod.ts"
 
 export async function app<CONFIG extends Record<string, unknown>>(
     name: string,
-    fn: (config: CONFIG) => Promise<any>,
+    fn: (config: CONFIG) => Promise<void>,
 ) {
-    console.log(`Starting ${name}`);
+    console.log(`Starting ${name}`)
 
-    const projectRoot = new URL(".", import.meta.url).pathname;
+    const projectRoot = new URL(".", import.meta.url).pathname
     const config = deepMerge(
         ...(await Promise.all([
             jsonConfigProvider<CONFIG>(join(projectRoot, "..", "config")),
             envConfigProvider<CONFIG>(name.toUpperCase()),
         ])),
-    ) as CONFIG;
+    ) as CONFIG
 
-    console.log(redact(config));
+    console.log(redact(config))
 
     fn(config)
         .catch((error) => {
-            console.error(`error:`, error);
-            throw error;
-            Deno.exit(1);
+            throw error
         })
         .then(() => {
-            console.log(`${name} success`);
-            Deno.exit(0);
-        });
+            console.log(`${name} success`)
+            Deno.exit(0)
+        })
 }

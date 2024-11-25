@@ -9,7 +9,8 @@
     "npm:date-fns@^4.1.0": "4.1.0",
     "npm:fx@35": "35.0.0",
     "npm:ioredis@^5.4.1": "5.4.1",
-    "npm:tslib@^2.8.1": "2.8.1"
+    "npm:tslib@^2.8.1": "2.8.1",
+    "npm:typescript@^5.7.2": "5.7.2"
   },
   "jsr": {
     "@std/assert@1.0.8": {
@@ -626,11 +627,15 @@
     "tweetnacl@1.0.3": {
       "integrity": "sha512-6rt+RN7aOi1nGMyC4Xa5DdYiukl2UWCbcJft7YhxReBGQD7OAM8Pbxw6YMo4r2diNEA8FEmu32YOn9rhaiE5yw=="
     },
+    "typescript@5.7.2": {
+      "integrity": "sha512-i5t66RHxDvVN40HfDd1PsEThGNnlMCMT3jMUuoh9/0TaqWevNontacunWyN02LA9/fIbEWlcHZcgTKb9QoaLfg=="
+    },
     "ws@7.4.6": {
       "integrity": "sha512-YmhHDO4MzaDLB+M9ym/mDA5z0naX8j7SIlT8f8z+I0VtzsRbekxEutHSme7NPS2qE8StCYQNUnfWdXta/Yu85A=="
     }
   },
   "redirects": {
+    "https://deno.land/std/assert/assert_equals.ts": "https://deno.land/std@0.224.0/assert/assert_equals.ts",
     "https://deno.land/std/collections/mod.ts": "https://deno.land/std@0.224.0/collections/mod.ts",
     "https://deno.land/std/path/mod.ts": "https://deno.land/std@0.224.0/path/mod.ts",
     "https://deno.land/std/testing/asserts.ts": "https://deno.land/std@0.224.0/testing/asserts.ts",
@@ -804,7 +809,8 @@
       "npm:date-fns@^4.1.0",
       "npm:fx@35",
       "npm:ioredis@^5.4.1",
-      "npm:tslib@^2.8.1"
+      "npm:tslib@^2.8.1",
+      "npm:typescript@^5.7.2"
     ]
   }
 }

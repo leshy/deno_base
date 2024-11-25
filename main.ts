@@ -1,27 +1,21 @@
-import { app } from "./utils/app.ts";
-import { Config } from "./types.ts";
-import { Polymarket } from "./integration/polymarket.ts";
-import * as df from "npm:date-fns";
-
-import {
-    PriceHistoryFilterParams,
-    PriceHistoryInterval,
-} from "@polymarket/clob-client";
+import { app } from "./utils/app.ts"
+import { Config } from "./types.ts"
+import { Polymarket } from "./integration/polymarket.ts"
 
 app("baserate", async (config: Config) => {
-    const polymarket = new Polymarket(config["polymarket"]);
-    const markets = (await polymarket.listMarkets()).data;
+    const polymarket = new Polymarket(config["polymarket"])
+    const markets = (await polymarket.listMarkets()).data
 
     const market = markets.find((market) =>
-        market.question.includes("Kurakhove"),
-    );
+        market.question.includes("Kurakhove")
+    )
 
-    const tokens = market.tokens;
+    const tokens = market.tokens
 
-    const tokenId = tokens[0].token_id;
+    const tokenId = tokens[0].token_id
 
-    console.log(tokens);
-    console.log("TOKEN ID", tokenId);
+    console.log(tokens)
+    console.log("TOKEN ID", tokenId)
 
     // const yes_prices_history = await polymarket.client.getPricesHistory({
     //     startTs: df.subDays(new Date(), 5).getTime() / 1000,
@@ -34,8 +28,8 @@ app("baserate", async (config: Config) => {
     // });
 
     await Promise.all(
-        tokens.map(async (token) => {
-            console.log(await polymarket.client.getOrderBook(token.token_id));
+        tokens.map(async (token: { token_id: string }) => {
+            console.log(await polymarket.client.getOrderBook(token.token_id))
         }),
-    );
-});
+    )
+})
